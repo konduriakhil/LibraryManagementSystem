@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  books_db:
+    image: postgres:15-alpine
+    volumes:
+      - books_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${BOOKS_DB_USER:-user}
+      POSTGRES_PASSWORD: ${BOOKS_DB_PASSWORD:-password}
+      POSTGRES_DB: ${BOOKS_DB_NAME:-booksdb}
+    ports:
+      - "5432:5432"
+
+  users_db:
+    image: postgres:15-alpine
+    volumes:
+      - users_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${USERS_DB_USER:-user}
+      POSTGRES_PASSWORD: ${USERS_DB_PASSWORD:-password}
+      POSTGRES_DB: ${USERS_DB_NAME:-usersdb}
+    ports:
+      - "5433:5432"
+
+  books_service:
+    build:
+      context: ./backend/books
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - books_db
+    environment:
+      DATABASE_URL: postgresql://${BOOKS_DB_USER:-user}:${BOOKS_DB_PASSWORD:-password}@books_db:5432/${BOOKS_DB_NAME:-booksdb}
+      SECRET_KEY: ${SECRET_KEY}
+
+  users_service:
+    build:
+      context: ./backend/users
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    depends_on:
+      - users_db
+    environment:
+      DATABASE_URL: postgresql://${USERS_DB_USER:-user}:${USERS_DB_PASSWORD:-password}@users_db:5432/${USERS_DB_NAME:-usersdb}
+      SECRET_KEY: ${SECRET_KEY}
+
+volumes:
+  books_data:
+  users_data:

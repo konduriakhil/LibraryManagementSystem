@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = (process.env.BACKEND_API_URL || 'http://localhost:8000/api/v1') + '/books';
 
 const BookList = ({ access_token }) => {
   const [books, setBooks] = useState([]);
@@ -19,7 +19,7 @@ const BookList = ({ access_token }) => {
       }
 
       try {
-        const response = await axios.get(`${API_URL}/api/v1/books`, {
+        const response = await axios.get(`${API_URL}`, {
           headers: { Authorization: `Bearer ${access_token}` }
         });
         setBooks(response.data);

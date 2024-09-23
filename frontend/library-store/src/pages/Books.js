@@ -7,7 +7,7 @@ function Books() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BOOKS_API_URL}/books/`);
+        const response = await axios.get(`${process.env.BACKEND_API_URL}/books/`);
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -28,7 +28,7 @@ function Books() {
             <p>Description: {book.description}</p>
             {book.image_path && (
               <img 
-                src={`${process.env.REACT_APP_BOOKS_API_URL}${book.image_path}`} 
+                src={`${book.image_path}`} 
                 alt={`Cover of ${book.title}`} 
                 style={{ maxWidth: '200px', height: 'auto' }}
               />

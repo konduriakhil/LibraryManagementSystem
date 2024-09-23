@@ -18,7 +18,7 @@ function Login({ onLogin }) {
       requestData.append('username', username);
       requestData.append('password', password);
       requestData.append('scope', '');
-      const response = await axios.post('http://localhost:8001/api/v1/token', requestData, {
+      const response = await axios.post(`${process.env.BACKEND_API_URL}/token`, requestData, {
         headers: {
           'accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded',

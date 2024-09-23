@@ -47,6 +47,16 @@ services:
       DATABASE_URL: postgresql://${USERS_DB_USER:-user}:${USERS_DB_PASSWORD:-password}@users_db:5432/${USERS_DB_NAME:-usersdb}
       SECRET_KEY: ${SECRET_KEY}
 
+  frontend:
+    build:
+      context: ./frontend/library-store
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - books_service
+      - users_service
+
 volumes:
   books_data:
   users_data:

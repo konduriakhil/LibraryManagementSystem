@@ -33,7 +33,7 @@ services:
       - books_db
     environment:
       DATABASE_URL: postgresql://${BOOKS_DB_USER:-user}:${BOOKS_DB_PASSWORD:-password}@books_db:5432/${BOOKS_DB_NAME:-booksdb}
-      SECRET_KEY: ${SECRET_KEY}
+      SECRET_KEY: ${SECRET_KEY:-'YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k'}
 
   users_service:
     build:
@@ -45,12 +45,16 @@ services:
       - users_db
     environment:
       DATABASE_URL: postgresql://${USERS_DB_USER:-user}:${USERS_DB_PASSWORD:-password}@users_db:5432/${USERS_DB_NAME:-usersdb}
-      SECRET_KEY: ${SECRET_KEY}
+      SECRET_KEY: ${SECRET_KEY:-'YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k'}
 
   frontend:
     build:
       context: ./frontend/library-store
       dockerfile: Dockerfile
+    environment:
+      REACT_APP_BACKEND_API_URL: http://users_service:8000/api/v1
+      REACT_APP_BOOKS_API_URL: http://books_service:8000/api/v1/books
+      REACT_APP_USERS_API_URL: http://users_service:8000/api/v1/users
     ports:
       - "3000:3000"
     depends_on:

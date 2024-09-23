@@ -1,9 +1,11 @@
+import json
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from . import models, schemas, auth
+from app import models, schemas, auth
 from app.database import engine, get_db
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -12,6 +14,7 @@ app = FastAPI()
 # Define the allowed origins
 origins = [
     "http://localhost:3000",  # Add the frontend URL you want to allow
+    "http://frontend:3000",
 ]
 
 # Add CORS middleware
@@ -22,6 +25,15 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
 )
+
+@app.get("/api/v1/info")
+def get_secret_details():
+    details = dict()
+    details['SECRET'] = auth.SECRET_KEY
+    details['ALGORITHM'] = auth.ALGORITHM
+    return json.dumps(details)
+
+
 
 
 @app.post("/api/v1/users/", response_model=schemas.User)

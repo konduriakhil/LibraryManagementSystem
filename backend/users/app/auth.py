@@ -6,8 +6,8 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-from app import models, schemas
-from app.database import get_db
+from . import models, schemas
+from .database import get_db
 
 
 load_dotenv()  # Load environment variables from .env file

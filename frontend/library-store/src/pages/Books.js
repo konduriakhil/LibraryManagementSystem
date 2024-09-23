@@ -7,7 +7,7 @@ function Books() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`${process.env.BACKEND_API_URL}/books/`);
+        const response = await axios.get(process.env.REACT_APP_BOOKS_API_URL);
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);

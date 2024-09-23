@@ -1,0 +1,99 @@
+{
+	"id": "b806b221-d0c1-4e27-a701-9af0d0534c35",
+	"name": "LocalDev",
+	"values": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BOOKS_URL",
+			"value": "http://127.0.0.1:8000/api/v1/books",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "admin_user",
+			"value": "admin",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "admin_email",
+			"value": "admin@khaja.tech",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "admin_password",
+			"value": "motherindia@123",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "member_user",
+			"value": "user1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "member_email",
+			"value": "user1@khaja.tech",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "member_password",
+			"value": "motherindia@123",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "admintoken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BASE_URL",
+			"value": "http://127.0.0.1:8001/api/v1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_id",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "librarian_user",
+			"value": "librarian1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "librarian_email",
+			"value": "librarian1@khaja.tech",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "librarian_password",
+			"value": "motherindia@123",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "librarian_token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-09-23T07:17:44.194Z",
+	"_postman_exported_using": "Postman/11.13.1"
+}

@@ -32,7 +32,7 @@ newman run LibraryApplication.postman_collection.json
 If you need to specify an environment file, you can use the `-e` option:
 
 ```bash
-newman run collection.json -e localenvironment.json
+newman run LibraryApplication.postman_collection.json -e localenvironment.json
 ```
 
 #### 4. Make necessary changes to the environment variables

@@ -1,6 +1,9 @@
 trigger: 
   - akhil
 
+variables:
+  tag: $(Build.BuildId)
+
 pool:
   vmImage: ubuntu-latest
 
@@ -16,7 +19,7 @@ stages:
               command: build
               Dockerfile: '$(Build.SourcesDirectory)/frontend/library-store/Dockerfile'
               repository: konduri/libraryforntend
-              tags: $(Build.BuildId)
+              tags: $(tag)
             displayName: 'building docker image'
 
           - script: |
@@ -28,7 +31,7 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                trivy image --format json -o trivy-report.json konduri/libraryforntend:$(tag) 
+                trivy image --format json -o trivy-report.json konduri/libraryfrontend:$(tag) 
             displayName: 'Run trivy scan'
           
           - task: UsePythonVersion@0
@@ -59,8 +62,9 @@ stages:
           - task: Docker@2
             inputs:
               command: 'push'
-              repository: konduri/libraryforntend:$(tag)
-              tags: $(tag)
+              repository: konduri/libraryforntend
+              tags: |
+                $(tag)
             displayName: 'push the docker image for frontend'
 
 

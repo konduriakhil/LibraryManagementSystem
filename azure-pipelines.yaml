@@ -14,7 +14,7 @@ stages:
           - task: Docker@2
             inputs:
               command: build
-              Dockerfile: '$(Build.SourcesDirectory)/frontend/Dockerfile'
+              Dockerfile: '$(Build.SourcesDirectory)/frontend/library-store/Dockerfile'
               repository: konduri/libraryforntend
               tags: $(Build.BuildId)
             displayName: 'building docker image'

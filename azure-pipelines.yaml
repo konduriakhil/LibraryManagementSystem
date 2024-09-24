@@ -9,7 +9,7 @@ pool:
 
 stages:
   - stage: frontend
-    displayName: building forntend image, doing trivy scan, publishing trivy report and puhsing image to docker hub
+    displayName: building frontend image, doing trivy scan, publishing trivy report and puhsing image to docker hub
     jobs:
       - job: 'frontend'
         steps:
@@ -18,7 +18,7 @@ stages:
             inputs:
               command: build
               Dockerfile: '$(Build.SourcesDirectory)/frontend/library-store/Dockerfile'
-              repository: konduri/libraryforntend
+              repository: konduri/libraryfrontend
               tags: $(tag)
             displayName: 'building docker image'
 
@@ -62,7 +62,7 @@ stages:
           - task: Docker@2
             inputs:
               command: 'push'
-              repository: konduri/libraryforntend
+              repository: konduri/libraryfrontend
               tags: |
                 $(tag)
             displayName: 'push the docker image for frontend'

@@ -44,7 +44,7 @@ stages:
               targetType: 'inline'
               script: |
                 pip install jinja2
-                python convert_json_to_html.py
+                python convert_json_to_xml.py
             displayName: 'converting trivy scan results to html format'
 
           - task: PublishPipelineArtifact@1
@@ -53,6 +53,10 @@ stages:
               artifactName: 'TrivyReport'
             displayName: 'Publishing trivy scan reports'
           
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: JUnit
+              testResultsFiles: '**/trivy-report.xml'
           - task: Docker@2
             inputs:
               command: login

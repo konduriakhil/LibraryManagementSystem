@@ -45,11 +45,11 @@ stages:
               script: |
                 pip install jinja2
                 python convert_json_to_xml.py
-            displayName: 'converting trivy scan results to html format'
+            displayName: 'converting trivy scan results to xml format'
 
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: 'trivy-report.html'
+              targetPath: 'trivy-report.xml'
               artifactName: 'TrivyReport'
             displayName: 'Publishing trivy scan reports'
           

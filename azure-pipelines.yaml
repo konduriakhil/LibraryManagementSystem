@@ -1,0 +1,67 @@
+trigger: 
+  - akhil
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: frontend
+    displayName: building forntend image, doing trivy scan, publishing trivy report and puhsing image to docker hub
+    jobs:
+      - job: 'frontend'
+        steps:
+
+          - task: Docker@2
+            inputs:
+              command: build
+              Dockerfile: '$(Build.SourcesDirectory)/frontend/Dockerfile'
+              repository: konduri/libraryforntend
+              tags: $(Build.BuildId)
+            displayName: 'building docker image'
+
+          - script: |
+              sudo apt-get install -y wget
+              wget https://github.com/aquasecurity/trivy/releases/download/v0.34.0/trivy_0.34.0_Linux-64bit.deb
+              sudo dpkg -i trivy_0.34.0_Linux-64bit.deb
+            displayName: 'Install Trivy'
+          
+          - task: CmdLine@2
+            inputs:
+              script: |
+                trivy image --format json -o trivy-report.json konduri/libraryforntend:$(tag) 
+            displayName: 'Run trivy scan'
+          
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.x'
+            displayName: 'Installing python'
+
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                pip install jinja2
+                python convert_json_to_html.py
+            displayName: 'converting trivy scan results to html format'
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: 'trivy-report.html'
+              artifactName: 'TrivyReport'
+            displayName: 'Publishing trivy scan reports'
+          
+          - task: Docker@2
+            inputs:
+              command: login
+              containerRegistry: docker-hub
+            displayName: 'Log in to Docker-hub account'
+
+          - task: Docker@2
+            inputs:
+              command: 'push'
+              repository: konduri/libraryforntend:$(tag)
+              tags: $(tag)
+            displayName: 'push the docker image for frontend'
+
+
+

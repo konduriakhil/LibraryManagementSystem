@@ -27,7 +27,10 @@ RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
 USER ${USERNAME}
 WORKDIR ${HOMEDIR}
 # Copying the frontend files from building_stage
-COPY --from=build_stage --chown=${USERNAME}:${USERNAME} /app/public "${HOMEDIR}/public"
+COPY --from=build_stage --chown=${USERNAME}:${USERNAME} /app/public .
+# Install a simple http server for serving static content
+RUN npm install -g serve
+COPY . .
 # Make port 3000 available to the world outside this container
 EXPOSE 3000
 # Run the app when the container launches

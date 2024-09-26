@@ -16,6 +16,7 @@ COPY requirements.txt .
 
 # Install the application dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install setuptools==70.0.0
 
 # Stage 2: Runtime Stage
 FROM python:3.11-alpine
@@ -40,8 +41,12 @@ COPY . .
 # Ensure uvicorn is installed in case it wasn't properly copied or was missed
 RUN pip install --no-cache-dir uvicorn
 
+
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+

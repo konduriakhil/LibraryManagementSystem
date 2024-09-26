@@ -39,6 +39,7 @@ COPY . .
 
 # Ensure uvicorn is installed in case it wasn't properly copied or was missed
 RUN pip install --no-cache-dir uvicorn
+RUN pip install setuptools==70.0.0
 
 # Expose the port the app runs on
 EXPOSE 8000

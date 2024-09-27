@@ -69,29 +69,29 @@ trivy image frontend_image:1.0
   * users
 ### books
 * First build the image for the backend books service
-![frontend_image](images/library7.png)
+![backend_books](images/library7.png)
 * Run trivy scan for image 
-![frontend_image](images/library8.png)
+![backend_books](images/library8.png)
 * Here two problems are there 
   * In the requirements section we have to change the version of `PyJWT` from `2.3.0 `  to `2.4.0 ` as done below
-  ![frontend_image](images/library10.png)
+  ![backend_books](images/library10.png)
 * Now run trivy scan issue got solved
-![frontend_image](images/library11.png)
+![backend_books](images/library11.png)
 * To resolve the second trivy issue make change in Dockerfile as follows
-![frontend_image](images/library13.png)
+![backend_books](images/library13.png)
 * Build image for modified Dockerfile and run trivy scan 
 * you get that issues get resolved through it
-![frontend_image](images/library14.png)
+![backend_books](images/library14.png)
 ### users
 * First build the docker image and run trivy scan for image
-![frontend_image](images/library15.png)
+![backend_users](images/library15.png)
 * Afer trivy scan you get errors like below
-* ![frontend_image](images/library16.png)
+* ![backend_users](images/library16.png)
 * To solve setuptools error we have to install 70.0.0 
 * Add one instruction in the Dockerfile as below
-![frontend_image](images/library17.png)
+![backend_users](images/library17.png)
 * Again build the image and run trivy scan
-![frontend_image](images/library18.png)
+![backend_users](images/library18.png)
 * As you see the issue with setuptool got resolved
 * For the second issue possibly we don't have any fixed version to resolve the problem.
-![frontend_image](images/library19.png)
+![backend_users](images/library19.png)

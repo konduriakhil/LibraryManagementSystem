@@ -23,9 +23,9 @@ ENV PYTHONUNBUFFERED=1
 RUN apk add --no-cache libpq
 # Passing environmental variables to parameterize the application USERNAME AND WORKING DIRECTORY
 ARG HOMEDIR="/users"
-ARG USERNAME="library_users"
+ARG USERNAME="libraryusers"
 # Creating the user and assigning working directory to user
-RUN adduser -h ${HOMEDIR} -s /bin/sh -D {USERNAME}
+RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
 # Create a directory for the application
 USER ${USERNAME}
 WORKDIR ${HOMEDIR}

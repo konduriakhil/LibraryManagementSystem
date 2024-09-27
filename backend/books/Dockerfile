@@ -20,11 +20,17 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 # Install runtime dependencies, including PostgreSQL client libraries
 RUN apk add --no-cache libpq
-# Create a directory for the application
-WORKDIR /books
+# Create a directory and user environment variables for the application
+ARG HOMEDIR="/books"
+ARG USERNAME="books"
+# Creating user and adding user to working directory
+RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
+# Assigning user and working directory
+WORKDIR ${HOMEDIR}
+USER ${USERNAME}
 # Copy installed dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
+COPY --from=builder --chown=${USERNAME}:${USERNAME} /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder --chown=${USERNAME}:${USERNAME} /usr/local/bin /usr/local/bin
 # Copy the application source code to the working directory
 COPY . .
 # Ensure uvicorn is installed in case it wasn't properly copied or was missed

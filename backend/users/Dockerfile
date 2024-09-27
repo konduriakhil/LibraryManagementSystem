@@ -22,13 +22,13 @@ ENV PYTHONUNBUFFERED=1
 # Install runtime dependencies, including PostgreSQL client libraries
 RUN apk add --no-cache libpq
 # Passing environmental variables to parameterize the application USERNAME AND WORKING DIRECTORY
-ARG HOMEDIR='/users'
-ARG USERNAME='users'
+ARG HOMEDIR="/users"
+ARG USERNAME="library_users"
 # Creating the user and assigning working directory to user
 RUN adduser -h ${HOMEDIR} -s /bin/sh -D {USERNAME}
 # Create a directory for the application
-WORKDIR ${HOMEDIR}
 USER ${USERNAME}
+WORKDIR ${HOMEDIR}
 # Copy installed dependencies from the builder stage
 COPY --from=builder --chown=${USERNAME}:${USERNAME} /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=builder --chown=${USERNAME}:${USERNAME} /usr/local/bin /usr/local/bin

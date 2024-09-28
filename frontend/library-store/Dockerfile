@@ -20,8 +20,8 @@ FROM node:18.20.4-alpine3.20
 # Adding Labels
 LABEL image="frontend"
 # Adding argument statements for user and homedirectory
-ARG USERNAME='library'
-ARG HOMEDIR='/library'
+ARG USERNAME='frontend'
+ARG HOMEDIR='/frontend'
 # Creating user and homedirectory
 RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
 # Adding user and assigning new working directory

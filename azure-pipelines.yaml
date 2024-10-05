@@ -18,6 +18,7 @@ stages:
   - template: librarymanagementsystem/stages/frontend.yaml@templates
   # - template: librarymanagementsystem/stages/backend_books.yaml@templates 
   # - template: librarymanagementsystem/stages/backend_users.yaml@templates
+  
 
 
 
